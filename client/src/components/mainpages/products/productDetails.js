@@ -6,7 +6,8 @@ export default function ProductDetails() {
    const params=useParams()
    const state=useContext(GlobalState)
    const [products]=state.ProductsAPI.products
-   
+   const addcart=state.userApi.addCart
+   const [detailProduct,setDetailProduct]=useState([])
    useEffect(()=>{
        console.log("rerender")
     if(params.id){
@@ -16,7 +17,7 @@ export default function ProductDetails() {
     }
    },[params.id,products])
 
-   const [detailProduct,setDetailProduct]=useState([])
+  
     if(detailProduct.length===0) return null;
     return (
         <>
@@ -31,7 +32,7 @@ export default function ProductDetails() {
                 <p>{detailProduct.description}</p>
                 <p>{detailProduct.content}</p>
                 <p>Sold: {detailProduct.sold}</p>
-                <Link to="/cart" className="cart">Buy Now</Link>
+                <Link to="/cart" className="cart" onClick={()=>addcart(detailProduct)}>Buy Now</Link>
             </div>
             
         </div>

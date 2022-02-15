@@ -116,5 +116,9 @@
     text-transform: uppercase;
     letter-spacing: 2px;
 }
-
+.product_card input{
+    position: absolute;
+    width: 25px;
+    height: 25px;
+}
 /* product details ends here*/

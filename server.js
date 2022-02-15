@@ -18,6 +18,7 @@ app.use('/user',router)
 app.use('/api',require('./routes/categoryRouter'))
 app.use('/api',require('./routes/upload'))
 app.use('/api',require('./routes/productRouter'))
+app.use('/api',require('./routes/paymentRouter'))
 
 
 const URI=process.env.MONGO_DB_URL

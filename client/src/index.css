@@ -39,3 +39,7 @@ button{
 @import url('./components//mainpages/products/product.css');
 
 @import url('./components//mainpages/auth/login.css');
+@import url('./components/mainpages/cart/cart.css');
+@import url('./components/mainpages/history/history.css');
+@import url('./components/Categories/categories.css');
+@import url('./components/mainpages/createProduct/createproduct.css');

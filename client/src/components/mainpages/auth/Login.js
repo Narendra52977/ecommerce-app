@@ -19,6 +19,7 @@ export default function Login() {
             localStorage.setItem('firstLogin',true)
             window.location.href='/'
         }catch(err){
+            console.log(err)
             alert(err.response.data.msg)
         }
     }

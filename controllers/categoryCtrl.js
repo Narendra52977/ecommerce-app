@@ -1,4 +1,5 @@
 const Category = require("../models/categoryModel")
+const Products = require("../models/productModel")
 
 const catagoryCtrl={
     getCategories:async(req,res)=>{
@@ -19,16 +20,19 @@ const catagoryCtrl={
             if(category) return res.status(400).json({msg:"Category already Exists"})
             const newCategory=new Category({name})
             await newCategory.save()
-            res.json({msg:"Created Category Successfully"})
-            res.json('check admin access')
- 
+            return  res.json({msg:"Created Category Successfully"})
         }catch(err){
             return res.status(500).json({msg:err.message})
         }
     },
     deleteCategory:async(req,res)=>{
         try{
-            await Category.findByIdAndDelete(req.params.id)
+            console.log(req.params.id)
+            const products=await Products.findOne({category:req.params.id})
+            if(products) return res.status(400).json({
+                msg:"Please delete all products with a relationship."
+            }) 
+            await Category.findOneAndDelete({_id:req.params.id})
             res.json({msg:"deleted successfully"})
         }catch(err){
             return res.status(500).json({msg:err.message})

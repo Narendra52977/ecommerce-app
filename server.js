@@ -5,6 +5,7 @@ const cors=require('cors')
 const fileUpload=require('express-fileupload')
 const cookieParser=require('cookie-parser')
 const router = require('./routes/userRouter')
+const path=require('path')
 
 const app=express()
 app.use(express.json())
@@ -27,6 +28,12 @@ mongoose.connect(URI,{useNewUrlParser: true},err=>{
     console.log('connected to Mongodb')
 })
 
+if(process.env.NODE_ENV==='production'){
+    app.use(express.static('client/build'))
+    app.get('*',(req,res)=>{
+        res.sendFile(path.join(__dirname,'client','build','index.html'))
+    })
+}
 
 
 const port=process.env.PORT||5000

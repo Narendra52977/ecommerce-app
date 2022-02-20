@@ -1,4 +1,5 @@
 const Category = require("../models/categoryModel")
+const Products = require("../models/productModel")
 
 const catagoryCtrl={
     getCategories:async(req,res)=>{
@@ -27,6 +28,10 @@ const catagoryCtrl={
     deleteCategory:async(req,res)=>{
         try{
             console.log(req.params.id)
+            const products=await Products.findOne({category:req.params.id})
+            if(products) return res.status(400).json({
+                msg:"Please delete all products with a relationship."
+            }) 
             await Category.findOneAndDelete({_id:req.params.id})
             res.json({msg:"deleted successfully"})
         }catch(err){

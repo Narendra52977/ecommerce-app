@@ -3,14 +3,14 @@ import { GlobalState } from '../../../GlobalState'
 
 import { Link } from 'react-router-dom'
 
-export default function BtnRender({product}) {
+export default function BtnRender({product,ondelete}) {
     const state=useContext(GlobalState)
     const [isAdmin] =state.userApi.isAdmin
     const addCart=state.userApi.addCart
     return (
         <div className="row_btn">
             {
-                isAdmin?<><Link id="btn_buy" to="#1">
+                isAdmin?<><Link id="btn_buy" to="#1" onClick={()=>ondelete(product._id,product.images.public_id)}>
                Delete
             </Link>
             <Link id="btn_view" to={`/edit_product/${product._id}/p`}>

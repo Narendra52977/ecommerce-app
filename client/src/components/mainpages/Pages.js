@@ -24,6 +24,8 @@ export default function Pages() {
               <Route path="/register" exact element={islogged?<NotFound/>:<Register/>}/>
               <Route path="/categories" exact element={isAdmin?<Categories/>:<NotFound/>}/>
               <Route path="create_product" exact element={isAdmin?<CreateProduct/>:<NotFound/>}/>
+              
+              <Route path="edit_product/:id/p" exact element={isAdmin?<CreateProduct/>:<NotFound/>}/>
               <Route path="/history" exact element={islogged?<OrderHistory/>:<NotFound/>}/>
               <Route path="/history/:id" exact element={islogged?<OrderDetails />:<NotFound/>}/>
               <Route path="/cart" exact element={<Cart/>}/>

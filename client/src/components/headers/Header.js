@@ -1,6 +1,5 @@
-import React, {  useContext } from "react";
+import React, {  useContext,useState } from "react";
 import { GlobalState } from "../../GlobalState";
-import "./icons/header.css";
 import Menu from "./icons/menu.svg";
 import Close from "./icons/close.svg";
 import Cart from "./icons/cart.svg";
@@ -24,9 +23,17 @@ export default function Header() {
   const [islogged] = state.userApi.islogged;
   const [isAdmin] = state.userApi.isAdmin;
   const [cart]=state.userApi.cart
+  const [menu,setMenu]=useState(false)
+  const styleMenu={
+    left:menu?0:"-100%"
+  }
   const logoutUser=async ()=>{
     await axios.post('/user/logout')
+    localStorage.removeItem('firstLogin')
     window.location.href="/"
+  }
+  const toggleMenu=()=>{
+    setMenu(!menu)
   }
   const loggedRouter = () => {
     return (
@@ -45,7 +52,7 @@ export default function Header() {
   
   return (
     <header>
-      <div className="menu">
+      <div className="menu" onClick={()=>{toggleMenu()}}>
         <img src={Menu} alt="" width="30" />
       </div>
       <div className="logo">
@@ -53,20 +60,20 @@ export default function Header() {
           <Link to="/">{isAdmin ? "Admin" : "Narendra Shop"}</Link>
         </h1>
       </div>
-      <ul>
+      <ul style={styleMenu}>
         <li>
           <Link to="/">{isAdmin ? "Products" : "Shop"}</Link>
         </li>
         {isAdmin && adminRouter()}
         {islogged ? (
-         loggedRouter()
+        loggedRouter()
         ) : (
           <li>
             <Link to="/login">Login/Register</Link>
           </li>
         )}
 
-        <li>
+        <li onClick={()=>{toggleMenu()}}>
           <img src={Close} alt="" width="30" className="menu" />
         </li>
       </ul>

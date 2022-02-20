@@ -12,15 +12,17 @@ class APIfeatures{
         excludedFields.forEach(el=>delete(queryObj[el]))
         console.log(queryObj)
         let queryStr=JSON.stringify(queryObj)
-       
+       console.log(queryStr,"before")
         queryStr=queryStr.replace(/\b(gte|gt|lt|lte|regex)\b/g,match=>'$'+match)
-     
+     console.log(queryStr,"after")
         this.query.find(JSON.parse(queryStr))
         return this;
     }
     sorting(){
         if(this.queryString.sort){
+            console.log(this.queryString)
             const sortBy=this.queryString.sort.split(',').join(' ')
+            console.log(sortBy,"sort")
             this.query.sort(sortBy)
         }
         else{
